@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en-US"><head>
+
+  <title>NeFight Wedding Rental</title>
+  <meta charset="utf-8">
+  <base href="">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="image/icon.svg">
+	<link rel="stylesheet" href="style/style.css"> 
+  <style>
+    div.item {
+      width: 200px; height: 300px;
+      margin: 10px; padding: 0;
+      background-color: #fff;
+      display: flex; flex-flow: column nowrap; justify-content: space-between; align-items: center;
+      box-shadow: 0 0 0 0 #fff; transition: box-shadow .3s ease-in-out;
+    } div.item:hover { box-shadow: 0 0 0 5px #fff }
+    div.item > img { object-fit: cover; width: 100%; height: 50% }
+    div.item > p, div.item > h3 { margin: 5px }
+  </style>
+	<script src="script/headscript.js"></script>
+
+</head><body><div id="root">
+  
+    <header>
+      <a href="./index.html" style="display:flex;flex-flow:row nowrap">
+        <img id="banner" src="image/banner.svg" alt="" width="50" height="50">
+        <h1>Beadle Wedding Rental</h1>
+      </a>
+      <button id="mobileNav" class="mobile" type="button"><img src="image/icon/optionLines.svg" alt="Menu" width="50" height="50"></button>
+        <nav>
+          <a id="documents" href="./documents.html">Documents and Agreements</a>
+          <a id="listings" href="./listings.html">Listings</a>
+          <a id="cart" href="./cart.html" class="specialNav">Your Cart</a>
+        </nav>
+    </header>
+    
+    <div id="main">
+
+      <section><div>
+        <h2>Food</h2>
+        <div class="flexrow">
+        <a href=""><div class="item">
+          <img alt="item" src="image/aprons.jpg" width="300" height="200">
+          <h3><span>$$$</span>&nbsp;Aprons</h3>
+          <p>Item description is really important</p>
+        </div></a>
+        <a href=""><div class="item">
+          <img alt="item" src="image/backdrop.webp" width="300" height="200">
+          <h3><span>$$$</span>&nbsp;Backdrop Frame</h3>
+          <p>Item description is really important</p>
+        </div></a>
+        <a href=""><div class="item">
+          <img alt="item" src="image/bouquet.webp" width="300" height="200">
+          <h3><span>$$$</span>&nbsp;Bridal Bouquet</h3>
+          <p>Item description is really important</p>
+        </div></a>
+      </div></section>
+
+    </div>
+
+    <footer><div>
+      <section>
+        <div>
+          <img src="image/icon/phone.svg" alt="#" height="15" width="15" style="margin-right: 10px"><a href="sms:+13852017474?&amp;body=Hello%21+I+have+a+question+about+your+wedding+rentals.">Text: (385) 312-0702</a>
+        </div><div>
+          <img src="image/icon/address.svg" alt="" height="25" width="25" style="margin-right: 10px"><a href="https://maps.app.goo.gl/Tba4saFWgEBu7MTt9">Utah County, Utah</a>
+        </div>
+      </section>
+    </div></footer>
+    <script src="script/footscript.js"></script>
+    
+</div></body></html> <!--div id="root"-->
