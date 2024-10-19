@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en-US"><head>
+	<link rel="stylesheet" href="style/style.css"> 
+	<script src="script/data.js"></script>
+	<style>
+		div#main {
+			display: flex; flex-flow: row wrap; justify-content: space-evenly; align-items: center;
+			padding: 20px 40px;
+		}
+		div#buttonContainer {
+			display: flex; flex-flow: row nowrap; justify-content: center; align-items: center;
+		}
+		button.count {
+			width: 50px; height: 50px;
+			background-color: #bbb;
+			border: 1px solid #777;
+			font-size: 3em;
+			display: flex; justify-content: center; align-items: center;
+		}
+		p#quantity {
+			width: 50px; height: 50px;
+			font-size: 1.5em;
+			display: flex; justify-content: center; align-items: center;
+		}
+		button#toCart {
+			height: 50px;
+			background-color: #bbb;
+			border: 1px solid #777;
+			font-size: 1.5em;
+			display: flex; justify-content: center; align-items: center;
+		}
+	</style>
+
+</head><body>
+
+	<div id="main">
+		<img id="itemImage" src="" alt="Main image" width=400 height=400 style="width:min(50%,400px);height:auto">
+			<h2 id="itemName">Item Name</h2>
+			<p id="description">Description is really important, so I'm going to make a really long one that we can see here so you understand the importance of such</p>
+			<div id="buttonContainer">
+				<button type="button" id="sub" class="count">-</button>
+				<p id="quantity">0</p>
+				<button type="button" id="add" class="count">+</button>
+				<button type="button" id="toCart">Add to Cart</button>
+			</div>
+	</div>
+
+	<script>
+		const query = new URLSearchParams(window.location.search);
+		if (!query.has("id")) { window.location.replace("./index.html") }
+
+		var itemID = query.get("id").replaceAll("\'","").replaceAll("\"","");
+		document.querySelector("img#itemImage").src = "image/"+itemID+".jpg";
+		document.querySelector("h2").innerText = itemData[itemID]["name"];
+		document.querySelector("p#description").innerText = itemData[itemID]["description"];
+
+		counter = document.querySelector("p#quantity");
+		subButton = document.querySelector("button#sub");
+		addButton = document.querySelector("button#add");
+		cartButton = document.querySelector("button#toCart");
+		subButton.addEventListener("click", event=>{ 
+			if (!Number(counter.innerText) < 1) {	counter.innerText = Number(counter.innerText)-1	}
+		});
+		addButton.addEventListener("click", event=>{ counter.innerText = Number(counter.innerText)+1	});
+
+		
+		cartButton.addEventListener("click", event => {
+			localStorage.setItem(query.get("id").replaceAll("\'",""),counter.innerText);
+			cartButton.innerText = "Added!";
+			cartButton.style.backgroundColor = "var(--highlightColorHover)";
+			subButton.disabled = true; addButton.disabled = true;
+		});
+	</script>
+
+</body></html>
