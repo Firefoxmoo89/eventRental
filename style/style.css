@@ -3,7 +3,7 @@
 :root {
 	--mainColor: #ff8ba0;
 	--highlightColor: #ff1b45;
-	--hightlightColorHover: #ff5574;
+	--highlightColorHover: #ff5574;
 	--inputColor: #ffd9df;
 	--inputHover: #ffe5ea;
 }
@@ -24,7 +24,7 @@ header {
 }
 img#banner { height: 100%; margin: 0 10px } a:has(> img#banner) { display: flex; flex-flow: row nowrap; justify-content: space-around; height: 100% }
 @keyframes navHover {	0% { background-color: none }	100% { background-color: #ececec } }
-@keyframes specialNavHover {	0% { background-color: none }	100% { background-color: var(--hightlightColorHover) } }
+@keyframes specialNavHover {	0% { background-color: none }	100% { background-color: var(--highlightColorHover) } }
 nav {	display: flex; flex-direction: row; align-items: center; justify-content: flex-end }
 nav > a, nav > a:visited {
 	cursor: pointer;
@@ -37,12 +37,13 @@ div#main {
 	display: flex; flex-direction: column;
 	width: 100%;
 }
-div#main > section { min-height: 40vh }
+div#main > section { min-height: 40vh; display:flex; flex-flow: column wrap; align-items: center; justify-content: center;}
 div#main > section:nth-child(2n+1), div#main > section.colored { background-color: var(--mainColor); color: #fff }
 div#main > section > div {
 	max-width: 100%; width: 960px;
 	margin: auto;	padding: 2rem 6rem;
 	text-align: center;
+	display:flex; flex-flow: column wrap; align-items: center; justify-content: center;
 }
 footer { width: 100%; background-color:#2b303a; color:#fff }
 footer > div {
@@ -65,9 +66,9 @@ footer a, footer a:visited {
 
 /* ___________________________General Page Formatting___________________________________ */
 a, a:visited { text-decoration: none; color: var(--highlightColor); font-weight: 600 } 
-a:hover, a:visited:hover { color: var(--hightlightColorHover) }
+a:hover, a:visited:hover { color: var(--highlightColorHover) }
 a.button {
-	display: block; cursor: pointer; float: right;
+	display: block; cursor: pointer; align-self: end;
 	height: 50px;
 	margin: 20px; padding: 10px;
 	text-align: center; color: #fff; letter-spacing: 1px; 
