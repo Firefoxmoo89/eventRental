@@ -1,21 +1,24 @@
 <!DOCTYPE html><html lang="en-US"><head>
 
-  <title>Wedding Rental</title>
+  <title>NeFight Wedding Rental</title>
   <meta charset="utf-8">
   <base href="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="image/icon.svg">
+  <link rel="icon" href="image/favicon.svg">
+  <meta property="og:title" content="Beadle Event Rental">
+  <meta property="og:description" content="Supplies for rent for events such as weddings, quinceneras, and other pretty parties!">
+  <meta property="og:image" content="image/homepage.jpg">
+  <meta prperty="og:url" content="eventrental.stuffadids.com">
 	<link rel="stylesheet" href="style/style.css"> 
 	<script src="script/headscript.js"></script>
+  <script src="script/data.js"></script>
 
-</head><body>
-
-  <div id="root">
+</head><body><div id="root">
   
     <header>
       <a href="./index.html" style="display:flex;flex-flow:row nowrap">
         <img id="banner" src="image/banner.svg" alt="" width="50" height="50">
-        <h1>Beadle Wedding Rental</h1>
+        <h1>Beadle Event Rental</h1>
       </a>
       <button id="mobileNav" class="mobile" type="button"><img src="image/icon/optionLines.svg" alt="Menu" width="50" height="50"></button>
         <nav>
@@ -27,8 +30,16 @@
     
     <div id="main">
 
+      <section><div>
 
+        <ul id="cartList">
+        
+        </ul>
 
+      </div></section>
+
+    </div>
+  
 			<footer><div>
 				<section>
 					<div>
@@ -39,5 +50,14 @@
 				</section>
 			</div></footer>
 			<script src="script/footscript.js"></script>
+      <script>
+        list = document.querySelector("ul#cartList");
+        let i = 0;
+        for (item in localStorage) {
+          newItem = document.createElement("li"); newItem.innerText = item+" - "+itemData[item]["name"]+" - "+localStorage.getItem(item);
+          list.appendChild(newItem);
+          i++; if (i>=localStorage.length) { break }
+        }
+      </script>
 			
 			</div></body></html> <!--div id="root"-->
