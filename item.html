@@ -7,7 +7,7 @@
 			padding: 20px 40px;
 		}
 		div#buttonContainer {
-			display: flex; flex-flow: row nowrap; justify-content: center; align-items: center;
+			display: flex; flex-flow: row wrap; justify-content: center; align-items: center;
 		}
 		button.count {
 			width: 50px; height: 50px;
@@ -33,14 +33,14 @@
 </head><body>
 
 	<div id="main">
-		<img id="itemImage" src="" alt="Main image" width=400 height=400 style="width:min(50%,400px);height:auto">
-			<h2 id="itemName">Item Name</h2>
+		<img id="itemImage" src="" alt="Main image" width=400 height=400 style="width:min(100%,400px);height:auto">
+			<div style="text-align:center"><h2 id="itemName" style="margin:25px">Item Name</h2><p><span id="itemPrice"></span>per item</div>
 			<p id="description">Description is really important, so I'm going to make a really long one that we can see here so you understand the importance of such</p>
 			<div id="buttonContainer">
 				<button type="button" id="sub" class="count">-</button>
 				<p id="quantity">0</p>
 				<button type="button" id="add" class="count">+</button>
-				<button type="button" id="toCart">Add to Cart</button>
+				<button type="button" id="toCart">Apply</button>
 			</div>
 	</div>
 
@@ -52,15 +52,17 @@
 		document.querySelector("img#itemImage").src = "image/"+itemID+".jpg";
 		document.querySelector("h2").innerText = itemData[itemID]["name"];
 		document.querySelector("p#description").innerText = itemData[itemID]["description"];
+		document.querySelector("span#itemPrice").innerText = "$"+itemData[itemID]["price"]+" ";
 
 		counter = document.querySelector("p#quantity");
 		subButton = document.querySelector("button#sub");
 		addButton = document.querySelector("button#add");
 		cartButton = document.querySelector("button#toCart");
+		if (localStorage.getItem(itemID)!=null) { counter.innerText = localStorage.getItem(itemID) }
 		subButton.addEventListener("click", event=>{ 
 			if (!Number(counter.innerText) < 1) {	counter.innerText = Number(counter.innerText)-1	}
 		});
-		addButton.addEventListener("click", event=>{ counter.innerText = Number(counter.innerText)+1	});
+		addButton.addEventListener("click", event=>{ counter.innerText = Number(counter.innerText)+1 });
 
 		
 		cartButton.addEventListener("click", event => {

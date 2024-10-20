@@ -1,0 +1,17 @@
+div#popup {
+	display: none; position: fixed; z-index: 99; top: 0; right: 0;
+	width: 100vw; height: 100vh;
+	align-items: center; justify-content: center;
+} 
+div#popup > div {
+	position: absolute;
+	width: 800px; max-width: 95%; height: 70vh;
+	box-shadow: 5px 5px 15px 5px #484848;
+	background-color: #fff;
+	border-radius: 10px;
+}
+div#popup > div > button { 
+	width: 50px; height: 50px;
+	position: absolute; top: 2px; right:2px;
+	border-radius: 50px;
+} div#popup > div > button:hover { background-color: var(--inputHover) } div#popup > div > button:active { filter: invert(20%) }
