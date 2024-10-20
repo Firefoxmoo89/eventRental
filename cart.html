@@ -1,6 +1,6 @@
 <!DOCTYPE html><html lang="en-US"><head>
 
-  <title>NeFight Wedding Rental</title>
+  <title>Beadle Event Rental</title>
   <meta charset="utf-8">
   <base href="">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,8 +10,21 @@
   <meta property="og:image" content="image/homepage.jpg">
   <meta prperty="og:url" content="eventrental.stuffadids.com">
 	<link rel="stylesheet" href="style/style.css"> 
+  <link rel="stylesheet" href="style/popup.css">
 	<script src="script/headscript.js"></script>
   <script src="script/data.js"></script>
+  <style>
+    div#cartList { width: 100% }
+    div#cartList > a > div {
+      height: 80px; width: 100%;
+      padding: 5px;
+      display: flex; flex-flow: row wrap; align-items: center; justify-content: space-between;
+      border-top: 1px solid #666;
+      text-align: center;
+    } div#cartList > a:last-child > div { border-bottom: 1px solid #666 }
+    div#cartList div > img { height: 100% }
+    p.money > span, span.value { font-weight: bold; font-size: 1.5em }
+  </style>
 
 </head><body><div id="root">
   
@@ -28,14 +41,21 @@
         </nav>
     </header>
     
+    <div id="popup">
+      <div>
+        <button type="button" id="setCart"><img src="image/icon/x.svg" alt="X" height=50 width=50 style="width:100%;height:100%"></button>
+        <iframe src="" name="itemDisplay" title="item listing" style="width:100%;height:100%;border:none"></iframe>
+      </div>
+    </div>
+
     <div id="main">
 
       <section><div>
-
-        <ul id="cartList">
-        
-        </ul>
-
+        <h2>Your Cart</h2>
+        <p>To edit any item, just click it in the list and the listing will pop up</p>
+        <div id="cartList"></div>
+        <p style="align-self:end">Total Price: <span id="totalPrice" class="value"></span></p>
+        <a id="placeOrder" class="button" href="" target="_blank">Place Your Order</a>
       </div></section>
 
     </div>
@@ -51,13 +71,54 @@
 			</div></footer>
 			<script src="script/footscript.js"></script>
       <script>
-        list = document.querySelector("ul#cartList");
-        let i = 0;
-        for (item in localStorage) {
-          newItem = document.createElement("li"); newItem.innerText = item+" - "+itemData[item]["name"]+" - "+localStorage.getItem(item);
+        list = document.querySelector("div#cartList"); let i = 0;
+        for (itemID in localStorage) {
+          let newItem = document.createElement("a"); newItem.href="./item.html?id="+itemID; newItem.id = itemID; newItem.target="itemDisplay";
+            let itemDiv = document.createElement("div"); newItem.appendChild(itemDiv);
+              let itemImg = document.createElement("img"); itemImg.src = "image/"+itemID+".jpg"; itemDiv.appendChild(itemImg);
+              let itemName = document.createElement("h3"); itemName.innerText = itemData[itemID]["name"]; itemDiv.appendChild(itemName);
+              let itemDes = document.createElement("p"); itemDes.innerText = itemData[itemID]["shortDescription"]; itemDiv.appendChild(itemDes);
+              let itemMoney = document.createElement("p"); itemMoney.className = "money"; itemDiv.appendChild(itemMoney);
+                let itemPrice = document.createElement("span"); itemPrice.innerText = "$"+itemData[itemID]["price"]; itemMoney.appendChild(itemPrice);
+                itemMoney.appendChild(document.createTextNode(" × "));
+                let itemCount = document.createElement("span"); itemCount.innerText = localStorage.getItem(itemID); itemCount.className = "itemCount"; itemMoney.appendChild(itemCount);
+                itemMoney.appendChild(document.createTextNode(" = "));
+                let itemTotal = document.createElement("span"); itemTotal.className = "itemTotal"; itemTotal.innerText = "$"+Number(itemData[itemID]["price"])*Number(localStorage.getItem(itemID)); itemMoney.appendChild(itemTotal);
           list.appendChild(newItem);
           i++; if (i>=localStorage.length) { break }
         }
+
+        function setTotal() {
+          let totalPrice = 0;
+          for (let amount of document.querySelectorAll("span.itemTotal")) { totalPrice += Number(amount.innerText.slice(1)) }
+          document.querySelector("span#totalPrice").innerText = "$"+totalPrice;
+          let finalString = "Hello, I would like to place the following order for your rental event items:\n"; let i=0;
+          for (itemID in localStorage) {
+            let price = itemData[itemID]["price"]; let count = Number(localStorage.getItem(itemID)); let total = price*count;
+            finalString += itemID+" "+itemData[itemID]["name"]+" - $"+price+" × "+count+" = $"+total+"\n";
+            i++; if (i>=localStorage.length) { break }
+          }
+          finalString = encodeURIComponent(finalString+"Total Price: "+document.querySelector("span#totalPrice").innerText);
+          document.querySelector("a#placeOrder").href="sms:+13852017474?&amp;body="+finalString;
+        } setTotal();
+
+        for (element of document.querySelectorAll("div#main a")) {
+          element.addEventListener("click",event=>{
+            document.querySelector("div#popup").style.display = "flex";
+            var itemElement = event.target;
+            while (itemElement.tagName != "A") { parent = itemElement.parentElement; itemElement = parent }
+            document.querySelector("iframe").dataset.itemID = itemElement.id;
+          });
+        }
+
+        document.querySelector("button#setCart").addEventListener("click",event => {
+          document.querySelector('div#popup').style.display="none";
+          let itemID = document.querySelector("iframe").dataset.itemID;
+          let itemLine = document.querySelector("a[id='"+itemID+"']"); 
+          itemLine.querySelector("span.itemCount").innerText = localStorage.getItem(itemID);
+          itemLine.querySelector("span.itemTotal").innerText = "$"+Number(itemData[itemID]["price"])*Number(localStorage.getItem(itemID));
+          setTotal();
+        });
       </script>
 			
 			</div></body></html> <!--div id="root"-->
