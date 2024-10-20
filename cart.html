@@ -73,7 +73,7 @@
       <script>
         list = document.querySelector("div#cartList"); let i = 0;
         for (itemID in localStorage) {
-          let newItem = document.createElement("a"); newItem.href="./item.html?id="+itemID; newItem.id = itemID; newItem.target="itemDisplay";
+          let newItem = document.createElement("a"); newItem.href="./item.html?id="+itemID; newItem.className = "listing"; newItem.id = itemID; newItem.target="itemDisplay";
             let itemDiv = document.createElement("div"); newItem.appendChild(itemDiv);
               let itemImg = document.createElement("img"); itemImg.src = "image/"+itemID+".jpg"; itemDiv.appendChild(itemImg);
               let itemName = document.createElement("h3"); itemName.innerText = itemData[itemID]["name"]; itemDiv.appendChild(itemName);
@@ -102,7 +102,7 @@
           document.querySelector("a#placeOrder").href="sms:+13852017474?&amp;body="+finalString;
         } setTotal();
 
-        for (element of document.querySelectorAll("div#main a")) {
+        for (element of document.querySelectorAll("div#main a.listing")) {
           element.addEventListener("click",event=>{
             document.querySelector("div#popup").style.display = "flex";
             var itemElement = event.target;
